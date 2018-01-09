@@ -43,7 +43,7 @@ class columnas {
 $c= new columnas();
 $b = $c->prueba('GT_User_List');
 //$b = new columnas();
-var_dump($b);
+//var_dump($b);
 $response['status']='success';
 $response['msg']='Complete';
 $response['data'] = $b;
