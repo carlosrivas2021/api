@@ -20,11 +20,9 @@ class columnas {
             }
             if ($listado->getMeta()) {
                 foreach ($listado->getMeta() as $key => $value) {
-                    if ($key=='reminders') {
-                        
-                    }else{
+
                     $campos[$key] = $value;}
-                }
+
             }
 
 
