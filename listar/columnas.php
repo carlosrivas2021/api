@@ -30,20 +30,17 @@ class columnas {
 
             $listaFinal[] = $campos;
             unset($campos);
-            //var_dump($campos);
-            //echo "<br><br>";
-            //echo "$client ";
+         
         }
 
         return $listaFinal;
-        //var_dump($listaFinal);
+        
     }
 
 }
 $c= new columnas();
 $b = $c->prueba('GT_User_List');
-//$b = new columnas();
-//var_dump($b);
 $response['status']='success';
 $response['msg']='Complete';
 $response['data'] = $b;
+die;
