@@ -11,7 +11,7 @@ foreach($users as $user)
     $clientsList[]=array
     (
         'ID'=>$user->get('ID'),
-        'first_name'=>$user->get('name')
+        'name'=>$user->get('name')
     );
 }
 
