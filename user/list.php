@@ -4,18 +4,18 @@ header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/config.php';
 
 $usersList=array();
-$clients = (new GT_User_List())->getList();
+$users = (new GT_User_List())->getList();
 
-foreach($clients as $client)
+foreach($users as $user)
 {
     $usersList[]=array
     (
-        'ID'=>$client->get('ID'),
-        'first_name'=>$client->get('first_name'),
-        'last_name'=>$client->get('last_name')
+        'ID'=>$user->get('ID'),
+        'first_name'=>$user->get('first_name'),
+        'last_name'=>$user->get('last_name')
     );
 }
-
+var_dump($usersList);
 $response['status']='success';
 $response['msg']='Complete';
 $response['data']=$usersList;
