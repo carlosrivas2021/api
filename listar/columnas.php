@@ -8,7 +8,7 @@ class columnas {
 
     public $a;
 
-    public function __construct($listas) {
+    public function prueba($listas) {
         $listados = (new $listas())->getList();
 
         foreach ($listados as $listado) {
@@ -20,7 +20,10 @@ class columnas {
             }
             if ($listado->getMeta()) {
                 foreach ($listado->getMeta() as $key => $value) {
-                    $campos[$key] = $value;
+                    if ($key=='reminders') {
+                        
+                    }else{
+                    $campos[$key] = $value;}
                 }
             }
 
@@ -32,11 +35,15 @@ class columnas {
             //echo "$client ";
         }
 
-        //return $listaFinal;
-        var_dump($listaFinal);
+        return $listaFinal;
+        //var_dump($listaFinal);
     }
 
 }
-
-$b = new columnas('GT_User_List');
+$c= new columnas();
+$b = $c->prueba('GT_User_List');
+//$b = new columnas();
+var_dump($b);
+$response['status']='success';
+$response['msg']='Complete';
 $response['data'] = $b;
