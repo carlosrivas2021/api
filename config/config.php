@@ -12,6 +12,7 @@ require_once '../objects/XAppClient.class.php';
 require_once '../objects/XUserClient.class.php';
 require_once '../objects/Attribute.class.php';
 require_once '../objects/Logs.class.php';
+require_once '../objects/Lists.class.php';
 
 $usersDB = new usersSql();
 $usersDBconn = $usersDB->connect(_AURORA_USERS_DATABASE, _AURORA_USERS, _AURORA_USERS_PASSWORD, 'users');
