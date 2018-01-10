@@ -204,6 +204,7 @@ class T_Global_Tech_DB_Object extends T_Global_Tech_Object
     if (!isset($_DB_CACHE[$this->_db_table]))
       $_DB_CACHE[$this->_db_table]=array();
     $q="SELECT * FROM ".$this->_db_table." WHERE ".$by.'="'.$value.'" LIMIT 1';
+    //var_dump($q);
     $hash=md5($q);
     if (!isset($_DB_CACHE[$this->_db_table][$hash]))
     {

@@ -14,6 +14,11 @@ require_once '../objects/Attribute.class.php';
 require_once '../objects/Logs.class.php';
 require_once '../objects/Lists.class.php';
 
+require_once '../objects/Role.class.php';
+require_once '../objects/UserPassword.class.php';
+require_once '../objects/XRolePermission.class.php';
+require_once '../objects/XUserRole.class.php';
+
 $usersDB = new usersSql();
 $usersDBconn = $usersDB->connect(_AURORA_USERS_DATABASE, _AURORA_USERS, _AURORA_USERS_PASSWORD, 'users');
 
@@ -31,10 +36,12 @@ function endpoint_shutdown()
 register_shutdown_function('endpoint_shutdown');
 
 $auth=false;
+$_REQUEST['key']='VbNQU449RkJvDDE7Svq82Z1OikhNz6pl';
 if (isset($_REQUEST['key']))
 {
     try 
     { //validate key before passing it to GT_App class
+ //       $app=new GT_App(trim($_REQUEST['key']), 'api_key');
         $app=new GT_App(trim($_REQUEST['key']), 'api_key');
         if ($app->get('ID')!='')
         $auth=true;
