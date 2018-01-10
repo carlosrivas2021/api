@@ -38,10 +38,10 @@ $c = new Auth();
 $b = $c->Login();
 
 $data[] = array(
-    "ans" => $b
+    "result" => $b
         );
 
-//$hash = password_hash("prueba", PASSWORD_BCRYPT);
+//$hash = echo password_hash("prueba", PASSWORD_BCRYPT);
 //echo $hash;
 //echo "<br>";
 //echo "<br>";
