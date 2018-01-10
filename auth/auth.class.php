@@ -3,7 +3,8 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/config.php';
 
-class Auth extends T_Global_Tech_Object {
+class Auth {
+    
     public $answer;
 
     public function Login($user = "carlos", $password = "prueba", $appClientID = "12") {
@@ -37,10 +38,10 @@ $c = new Auth();
 $b = $c->Login();
 
 $data[] = array(
-    "ans" => $b
+    "result" => $b
         );
 
-//$hash = password_hash("prueba", PASSWORD_BCRYPT);
+//$hash = echo password_hash("prueba", PASSWORD_BCRYPT);
 //echo $hash;
 //echo "<br>";
 //echo "<br>";
@@ -54,4 +55,4 @@ $data[] = array(
 $response['status'] = 'success';
 $response['msg'] = 'Complete';
 $response['data'] = $data;
-
+die;
