@@ -18,17 +18,17 @@ class Auth {
             $users->loadBy($user, 'username');
         }
         $pass = new GT_User_Password();
-        try{
-        $pass->loadBy($users->get('ID'), 'userID');
-        } catch (Exception $ex){
+        try {
+            $pass->loadBy($users->get('ID'), 'userID');
+        } catch (Exception $ex) {
             
         }
-        if (password_verify($password, $pass->get('password'))&& $appClientID == $pass->get('appClientID')) {
-               $this->answer = "success";
-            }else{
-                $this->answer = "error";
-            }
-        
+        if (password_verify($password, $pass->get('password')) && $appClientID == $pass->get('appClientID')) {
+            $this->answer = "success";
+        } else {
+            $this->answer = "error";
+        }
+
         return $this->answer;
     }
 
@@ -38,8 +38,8 @@ $c = new Auth();
 $b = $c->Login();
 
 $data[] = array(
-   "result" => $b 
-) ;
+    "ans" => $b
+        );
 
 //$hash = password_hash("prueba", PASSWORD_BCRYPT);
 //echo $hash;
@@ -52,8 +52,7 @@ $data[] = array(
 //echo "<br>";
 //echo "<br>";
 //var_dump(password_verify('prueba', $hash));
-$response['status']='success';
-$response['msg']='Complete';
+$response['status'] = 'success';
+$response['msg'] = 'Complete';
 $response['data'] = $data;
-
 die;
