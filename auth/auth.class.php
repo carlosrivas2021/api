@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/config.php';
 
-class Auth extends T_Global_Tech_Object {
+class Auth {
     
     public $answer;
 
