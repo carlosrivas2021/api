@@ -1,18 +1,9 @@
 <?php
-<<<<<<< HEAD
-
-=======
->>>>>>> 760c379c405ab2ae5642ddc3ee1115d187809f10
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/config.php';
 
 class Auth extends T_Global_Tech_Object {
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> 760c379c405ab2ae5642ddc3ee1115d187809f10
     public $answer;
 
     public function Login($user = "carlos", $password = "prueba", $appClientID = "12") {
@@ -26,7 +17,6 @@ class Auth extends T_Global_Tech_Object {
             $users->loadBy($user, 'username');
         }
         $pass = new GT_User_Password();
-<<<<<<< HEAD
         try {
             $pass->loadBy($users->get('ID'), 'userID');
         } catch (Exception $ex) {
@@ -38,19 +28,6 @@ class Auth extends T_Global_Tech_Object {
             $this->answer = "error";
         }
 
-=======
-        try{
-        $pass->loadBy($users->get('ID'), 'userID');
-        } catch (Exception $ex){
-            
-        }
-        if (password_verify($password, $pass->get('password'))&& $appClientID == $pass->get('appClientID')) {
-               $this->answer = "success";
-            }else{
-                $this->answer = "error";
-            }
-        
->>>>>>> 760c379c405ab2ae5642ddc3ee1115d187809f10
         return $this->answer;
     }
 
@@ -60,13 +37,8 @@ $c = new Auth();
 $b = $c->Login();
 
 $data[] = array(
-<<<<<<< HEAD
     "ans" => $b
         );
-=======
-   "result" => $b 
-) ;
->>>>>>> 760c379c405ab2ae5642ddc3ee1115d187809f10
 
 //$hash = password_hash("prueba", PASSWORD_BCRYPT);
 //echo $hash;
@@ -79,15 +51,7 @@ $data[] = array(
 //echo "<br>";
 //echo "<br>";
 //var_dump(password_verify('prueba', $hash));
-<<<<<<< HEAD
 $response['status'] = 'success';
 $response['msg'] = 'Complete';
 $response['data'] = $data;
 
-=======
-$response['status']='success';
-$response['msg']='Complete';
-$response['data'] = $data;
-
-die;
->>>>>>> 760c379c405ab2ae5642ddc3ee1115d187809f10
