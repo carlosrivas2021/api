@@ -8,8 +8,13 @@ class Lists {
 
 
 
-    public function listing($list) {
-        $listings = (new $list())->getList();
+    public function listing($list, $where = '') {
+        if($where == '') {
+            $listings = (new $list())->getList();
+        }else {
+            $listings = (new $list($where[0], $where[1]))->getList();
+        }
+        
 
         foreach ($listings as $listing) {
 
