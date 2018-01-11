@@ -6,10 +6,10 @@ include_once '../config/config.php';
 
 class List_X_Client {
 
-    public function listxclient() {
+    public function listxclient($appClientID) {
         $crmDB = new usersSql();
         $crmDBconn = $crmDB->connect(_TOURTRACK_USERS_DATABASE, _TOURTRACK_USERS, _TOURTRACK_USERS_PASSWORD, 'users');
-        $query = $crmDB->query('SELECT userID FROM `x_users_clients` WHERE clientID in (select clientID from x_apps_clients where ID=12)');
+        $query = $crmDB->query('SELECT userID FROM `x_users_clients` WHERE clientID in (select clientID from x_apps_clients where ID=$appClientID)');
         while ($row = $crmDB->fetch_array($query)) {
             $user = new GT_User($row['userID']);
             if ($user->getMeta()) {
@@ -31,7 +31,7 @@ class List_X_Client {
 }
 
 $a = new List_X_Client();
-$b = $a->listxclient();
+$b = $a->listxclient($_REQUEST['appClientID']);
 //var_dump($b);
 $response['status']='success';
 $response['msg']='Complete';
