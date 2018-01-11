@@ -43,6 +43,14 @@ class T_Global_Tech_Object
 	 */
   protected $_empty;
   
+  /**
+	 * Class constructor
+	 *
+	 * Set connection data and create connector. 
+   * 
+	 * @param 	¿int|string?	$id	¿description?
+	 * @return	void
+	 */
   function __construct($id=0)
   {
     if ($id!=0)
@@ -143,6 +151,16 @@ class T_Global_Tech_DB_Object extends T_Global_Tech_Object
 	 */
   protected $_alt_db=null;
   
+  /**
+	 * Class constructor
+	 *
+	 * Set connection data and create connector. 
+   * 
+	 * @param 	¿int|string?	$id	¿description?
+   * @param 	string	      $by	¿description?
+   * @param 	array	        $row ¿description?
+	 * @return	void
+	 */
   function __construct($id, $by, $row=array())
   {
     $this->_meta=array();
@@ -382,6 +400,17 @@ class T_Global_Tech_DB_Object extends T_Global_Tech_Object
  */
 class T_Global_Tech_DB_Cross_Object extends T_Global_Tech_DB_Object
 {
+  /**
+	 * Class constructor
+	 *
+	 * Set connection data and create connector. 
+   * 
+	 * @param 	¿int|string?	$id	¿description?
+   * @param 	string	      $by	¿description?
+   * @param 	string	      $orderBy	¿description?
+   * @param 	array	        $row ¿description?
+	 * @return	void
+	 */
 	function __construct($id, $by, $orderBy='', $row=array())
   {
 		if ((!(is_array($id)&&is_array($by)))||(count($row)>0))
@@ -469,6 +498,16 @@ class T_Global_Tech_DB_Hierarchical_Object extends T_Global_Tech_DB_Object
 	 */
   private $_allchildren;
   
+  /**
+	 * Class constructor
+	 *
+	 * Set connection data and create connector. 
+   * 
+	 * @param 	¿int|string?	$id	¿description?
+   * @param 	string	      $by	¿description?
+   * @param 	array	        $row ¿description?
+	 * @return	void
+	 */
   function __construct($id, $by, $row=array())
   {
     $this->_children=null;
@@ -628,6 +667,14 @@ class T_Global_Tech_Object_List
 	 */
   private $_pointer;
 
+  /**
+	 * Class constructor
+	 *
+	 * Set connection data and create connector. 
+   * 
+   * @param 	array	        $item ¿description?
+	 * @return	void
+	 */
   function __construct($items=array())
   {
     $this->_pointer=0;
@@ -785,6 +832,16 @@ class T_Global_Tech_DB_Object_List extends T_Global_Tech_Object_List
 	 */
   public $_all_meta;
 
+  /**
+	 * Class constructor
+	 *
+	 * Set connection data and create connector. 
+   * 
+	 * @param 	¿int|string?	$id	¿description?
+   * @param 	string	      $by	¿description?
+   * @param 	string	      $orderBy	¿description?
+	 * @return	void
+	 */
   function __construct($id, $by, $orderBy='')
   {
     $tmp=new $this->_class();
@@ -897,6 +954,16 @@ class T_Global_Tech_DB_Object_List extends T_Global_Tech_Object_List
  */
 class T_Global_Tech_DB_Cross_Object_List extends T_Global_Tech_DB_Object_List
 {
+  /**
+	 * Class constructor
+	 *
+	 * Set connection data and create connector. 
+   * 
+	 * @param 	¿int|string?	$id	¿description?
+   * @param 	string	      $by	¿description?
+   * @param 	string	      $orderBy	¿description?
+	 * @return	void
+	 */
 	function __construct($id, $by, $orderBy='')
   {
 		if (!(is_array($id)&&is_array($by)))
@@ -962,7 +1029,3 @@ class T_Global_Tech_DB_Cross_Object_List extends T_Global_Tech_DB_Object_List
 		return $this->_load($where);
 	}
 }
-
-
-
-
