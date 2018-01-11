@@ -11,10 +11,36 @@ function is_user_logged_in()
 // 	public static $_CACHE=array();
 // }
 
+/**
+ * T_Global_Tech_Object Class
+ *
+ * Description.
+ *
+ * @author	-
+ * @license	-
+ * @link	-
+ */
 class T_Global_Tech_Object
 {
+  /**
+	 * description field
+	 *
+	 * @var	array
+	 */
   protected  $_fields=array();
+
+  /**
+	 * description field
+	 *
+	 * @var	array
+	 */
   protected $_data=array();
+
+  /**
+	 * description field
+	 *
+	 * @var	bool
+	 */
   protected $_empty;
   
   function __construct($id=0)
@@ -71,12 +97,50 @@ class T_Global_Tech_Object
 
 }
 
+/**
+ * T_Global_Tech_DB_Object Class
+ *
+ * Description.
+ *
+ * @author	-
+ * @license	-
+ * @link	-
+ */
 class T_Global_Tech_DB_Object extends T_Global_Tech_Object
 {
+  /**
+	 * description field
+	 *
+	 * @var	string
+	 */
   protected $_db_table;
+
+  /**
+	 * description field
+	 *
+	 * @var	string
+	 */
   protected $_meta_table;
+
+  /**
+	 * description field
+	 *
+	 * @var	string
+	 */
   protected $_meta_idx;
+
+  /**
+	 * description field
+	 *
+	 * @var	string
+	 */
   protected $_meta;
+
+  /**
+	 * description field
+	 *
+	 * @var	¿?
+	 */
   protected $_alt_db=null;
   
   function __construct($id, $by, $row=array())
@@ -307,6 +371,15 @@ class T_Global_Tech_DB_Object extends T_Global_Tech_Object
   }
 }
 
+/**
+ * T_Global_Tech_DB_Cross_Object Class
+ *
+ * Description.
+ *
+ * @author	-
+ * @license	-
+ * @link	-
+ */
 class T_Global_Tech_DB_Cross_Object extends T_Global_Tech_DB_Object
 {
 	function __construct($id, $by, $orderBy='', $row=array())
@@ -364,10 +437,36 @@ class T_Global_Tech_DB_Cross_Object extends T_Global_Tech_DB_Object
 	}
 }
 
+/**
+ * T_Global_Tech_DB_Hierarchical_Object Class
+ *
+ * Description.
+ *
+ * @author	-
+ * @license	-
+ * @link	-
+ */
 class T_Global_Tech_DB_Hierarchical_Object extends T_Global_Tech_DB_Object
 {
+  /**
+	 * description field
+	 *
+	 * @var	¿?
+	 */
   protected $_lister;
+
+  /**
+	 * description field
+	 *
+	 * @var	¿?
+	 */
   private $_children;
+
+  /**
+	 * description field
+	 *
+	 * @var	¿?
+	 */
   private $_allchildren;
   
   function __construct($id, $by, $row=array())
@@ -504,11 +603,29 @@ class T_Global_Tech_DB_Hierarchical_Object extends T_Global_Tech_DB_Object
   }
 }
 
-
-
+/**
+ * T_Global_Tech_Object_List Class
+ *
+ * Description.
+ *
+ * @author	-
+ * @license	-
+ * @link	-
+ */
 class T_Global_Tech_Object_List
 {
+  /**
+	 * description field
+	 *
+	 * @var	array
+	 */
   protected $_items;
+  
+  /**
+	 * description field
+	 *
+	 * @var	¿¿¿integer???
+	 */
   private $_pointer;
 
   function __construct($items=array())
@@ -622,12 +739,50 @@ class T_Global_Tech_Object_List
 	}
 }
 
+/**
+ * T_Global_Tech_DB_Object_List Class
+ *
+ * Description.
+ *
+ * @author	-
+ * @license	-
+ * @link	-
+ */
 class T_Global_Tech_DB_Object_List extends T_Global_Tech_Object_List
 {
+  /**
+	 * description field
+	 *
+	 * @var	string
+	 */
   protected $_db_table;
+
+  /**
+	 * description field
+	 *
+	 * @var	string
+	 */
   protected $_class=null;
+
+  /**
+	 * description field
+	 *
+	 * @var	array
+	 */
   protected $_fields;
-	protected $_alt_db;
+
+  /**
+	 * description field
+	 *
+	 * @var	string
+	 */
+  protected $_alt_db;
+  
+  /**
+	 * description field
+	 *
+	 * @var	¿¿¿array???
+	 */
   public $_all_meta;
 
   function __construct($id, $by, $orderBy='')
@@ -731,6 +886,15 @@ class T_Global_Tech_DB_Object_List extends T_Global_Tech_Object_List
   }
 }
 
+/**
+ * T_Global_Tech_DB_Cross_Object_List Class
+ *
+ * Description.
+ *
+ * @author	-
+ * @license	-
+ * @link	-
+ */
 class T_Global_Tech_DB_Cross_Object_List extends T_Global_Tech_DB_Object_List
 {
 	function __construct($id, $by, $orderBy='')
