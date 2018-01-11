@@ -1,7 +1,7 @@
 <?php
 
-//header("Access-Control-Allow-Origin: *");
-//header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/config.php';
 
 class Auth {
@@ -41,9 +41,9 @@ class Auth {
             } 
         }
         if ($this->answerPassword=="error") {
-            $this->answer = "error1";
+            $this->answer = "error";
         } elseif ($this->answerPermission!="success") {
-            $this->answer = "error2";
+            $this->answer = "error";
         }else{
             $this->answer = "success";
         }
