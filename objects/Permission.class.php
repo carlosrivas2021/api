@@ -4,7 +4,7 @@ class GT_Permission extends T_Global_Tech_DB_Cross_Object
   function __construct($id=0, $by='ID',$row=array())
   {
     $this->_db_table='permissions';
-    $this->_fields=array('ID','slug','objectID', 'objectType', 'name','active');
+    $this->_fields=array('ID','slug','name', 'parent', 'root','app','description');
     parent::__construct($id, $by,'', $row);
   }
   public function get($key)
@@ -35,7 +35,7 @@ class GT_Permission_List extends  T_Global_Tech_DB_Cross_Object_List
 	{
 
 		$this->_db_table='permissions';
-    $this->_fields=array('ID','slug','objectID', 'objectType', 'name','active');
+    $this->_fields=array('ID','slug','name', 'parent', 'root','app','description');
 		$this->_class='GT_Permission';
 
 		parent::__construct($id, $by);
