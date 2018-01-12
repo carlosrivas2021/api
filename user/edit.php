@@ -20,7 +20,6 @@ class Edit_User {
                     $this->userID = $value;
 
                     break;
-
                 case 'appClient':
                     $this->appClient = $value;
                     break;
@@ -37,6 +36,7 @@ class Edit_User {
                     break;
             }
         }
+        //Crear los nuevos meta
         $usersDB = new usersSql();
         $usersDBconn = $usersDB->connect(_AURORA_USERS_DATABASE, _AURORA_USERS, _AURORA_USERS_PASSWORD, 'users');
         //Crear los meta si no existen
@@ -58,6 +58,9 @@ class Edit_User {
             }
         }
         //Verificar si existe el pass
+        //Si existe lo modifica
+        //Sino lo crea
+        //Siempre y cuando el pass traiga algo
         if ($this->password) {
             $hash = password_hash($this->password, PASSWORD_BCRYPT);
             $query = $usersDB->query("SELECT ID FROM users_password WHERE appClientID = " . $this->appClient . "");
@@ -70,6 +73,8 @@ class Edit_User {
             }
         }
         //Verificar rol
+        //Si existe el rol lo cambia
+        //Si no existe lo crea
         $query = $usersDB->query("SELECT ID,roleID FROM `x_users_roles` WHERE userID=$this->userID and appClientID=$this->appClient");
         if ($row2 = $usersDB->fetch_array($query)) {
             if ($this->roleID != $row2['roleID']) {
