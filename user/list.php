@@ -4,7 +4,12 @@ header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/config.php';
 
 $c= new Lists();
+if(isset($_REQUEST['userID'])){
+   
+$b = $c->listing('GT_User_List',array($_REQUEST['userID'],'ID'));    
+}else{
 $b = $c->listing('GT_User_List');
+}
 //var_dump($b);
 $response['status']='success';
 $response['msg']='Complete';
