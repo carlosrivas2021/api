@@ -17,7 +17,7 @@ JOIN  x_apps_clients ON  x_users_clients.clientID = x_apps_clients.clientID
 join users_password on x_apps_clients.ID = users_password.appClientID and users_password.userID=users_master.ID and users_password.appClientID='.$appClientID.'');
         //var_dump($usersDB->fetch_array($query));
         while ($row = $usersDB->fetch_array($query)) {
-            $user = new GT_User($row['userID']);
+            $user = new GT_User($row["ID"]);
             if ($user->getMeta()) {
                 $campos['ID'] = $user->get('ID');
                 foreach ($user->getMeta() as $key => $value) {
