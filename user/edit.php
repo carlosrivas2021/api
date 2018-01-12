@@ -97,7 +97,7 @@ class Edit_User {
                 $query = $usersDB->query("SELECT ID FROM users_meta WHERE meta_key='" . $key . "' AND userID=$this->userID limit 1");
                 if ($row3 = $usersDB->fetch_array($query)) {
                     $idxmeta = $row3['ID'];
-                    $query = $usersDB->query("UPDATE `users_meta` SET `meta_key`='" . $key . "',`meta_value`='" . $value . "',`editor`='',`created`='' WHERE ID=$idxmeta");
+                    $query = $usersDB->query("UPDATE `users_meta` SET `meta_key`='" . $key . "',`meta_value`='" . $valuem . "',`editor`='',`created`='' WHERE ID=$idxmeta");
                 }
             }
         }
