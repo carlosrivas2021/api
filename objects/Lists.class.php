@@ -10,6 +10,7 @@ class Lists {
 
     public function listing($list, $where = '') {
         $finalList='';
+        $k=null;
         if($where == '') {
             $listings = (new $list())->getList();
         }else {
@@ -27,7 +28,9 @@ class Lists {
             if ($listing->getMeta()) {
                 foreach ($listing->getMeta() as $key => $value) {
 
-                    $campos[$key] = $value;}
+                    $campos['meta'][$key] = $value;
+                    
+                }
 
             }
 
