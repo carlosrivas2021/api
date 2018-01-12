@@ -43,7 +43,7 @@ class usersSql
   function query($query){
     global $queryCnt;
     $queryCnt++;
-		// echo $query.'  - cnt: '.$queryCnt.'<br>';
+//		 echo $query.'  - cnt: '.$queryCnt.'<br>';
     $queryReserve = $query;
     $query = mysqli_query($this->link, $query);
     if(!$query){return false;}else{return $query;}
