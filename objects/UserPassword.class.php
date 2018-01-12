@@ -1,11 +1,11 @@
 <?php
-class GT_User_Password extends T_Global_Tech_DB_Object
+class GT_User_Password extends T_Global_Tech_DB_Cross_Object
 {
   function __construct($id=0, $by='ID',$row=array())
   {
     $this->_db_table='users_password';
     $this->_fields=array('ID', 'userID', 'password', 'appClientID', 'updated_at');
-    parent::__construct($id, $by, $row);
+    parent::__construct($id, $by,'', $row);
   }
   
 }
