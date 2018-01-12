@@ -40,20 +40,24 @@ class Edit_User {
         $usersDB = new usersSql();
         $usersDBconn = $usersDB->connect(_AURORA_USERS_DATABASE, _AURORA_USERS, _AURORA_USERS_PASSWORD, 'users');
         //Crear los meta si no existen
-        foreach ($this->meta as $key => $value) {
-            //var_dump($usersDBconn);
-            $query = $usersDB->query("SELECT meta_key FROM users_meta WHERE meta_key='" . $key . "' limit 1");
-            //$row = $usersDB->fetch_array($query);
-            // var_dump($row);
-            if ($row = $usersDB->fetch_array($query)) {
-                //echo "Entro";
-            } else {
-                $c = new Lists();
-                $b = $c->listing('GT_User_List');
-                foreach ($b as $value1) {
-                    $id = $value1['ID'];
-                    //Activar
-                    $query = $usersDB->query("INSERT INTO `users_meta`(`userID`, `meta_key`, `meta_value`, `editor`) VALUES ($id,'" . $key . "','','2') ");
+        foreach ($this->meta as $value) {
+            foreach ($value as $key => $valuem) {
+
+
+                //var_dump($usersDBconn);
+                $query = $usersDB->query("SELECT meta_key FROM users_meta WHERE meta_key='" . $key . "' limit 1");
+                //$row = $usersDB->fetch_array($query);
+                // var_dump($row);
+                if ($row = $usersDB->fetch_array($query)) {
+                    //echo "Entro";
+                } else {
+                    $c = new Lists();
+                    $b = $c->listing('GT_User_List');
+                    foreach ($b as $value1) {
+                        $id = $value1['ID'];
+                        //Activar
+                        $query = $usersDB->query("INSERT INTO `users_meta`(`userID`, `meta_key`, `meta_value`, `editor`) VALUES ($id,'" . $key . "','','2') ");
+                    }
                 }
             }
         }
@@ -86,11 +90,15 @@ class Edit_User {
         }
 
         //Actualizar los meta
-        foreach ($this->meta as $key => $value) {
-            $query = $usersDB->query("SELECT ID FROM users_meta WHERE meta_key='" . $key . "' AND userID=$this->userID limit 1");
-            if ($row3 = $usersDB->fetch_array($query)) {
-                $idxmeta = $row3['ID'];
-                $query = $usersDB->query("UPDATE `users_meta` SET `meta_key`='" . $key . "',`meta_value`='" . $value . "',`editor`='',`created`='' WHERE ID=$idxmeta");
+        foreach ($this->meta as $value) {
+            foreach ($value as $key => $valuem) {
+
+
+                $query = $usersDB->query("SELECT ID FROM users_meta WHERE meta_key='" . $key . "' AND userID=$this->userID limit 1");
+                if ($row3 = $usersDB->fetch_array($query)) {
+                    $idxmeta = $row3['ID'];
+                    $query = $usersDB->query("UPDATE `users_meta` SET `meta_key`='" . $key . "',`meta_value`='" . $value . "',`editor`='',`created`='' WHERE ID=$idxmeta");
+                }
             }
         }
 
