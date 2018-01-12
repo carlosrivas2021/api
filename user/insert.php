@@ -220,5 +220,4 @@ $b = $a->insertuser($_REQUEST);
 $response['status'] = 'success';
 $response['msg'] = 'Complete';
 $response['data'] = $b;
-
 die;
