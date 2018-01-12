@@ -26,7 +26,7 @@ class Edit_User {
                 case 'meta':
                     $this->meta = $value;
                     break;
-                case 'password-edit':
+                case 'password':
                     $this->password = $value;
                     break;
                 case 'roleID':
@@ -66,6 +66,7 @@ class Edit_User {
         //Sino lo crea
         //Siempre y cuando el pass traiga algo
         if ($this->password) {
+//            $hash = $this->password;
             $hash = password_hash($this->password, PASSWORD_BCRYPT);
             $query = $usersDB->query("SELECT ID FROM users_password WHERE appClientID = " . $this->appClient . "");
             if ($row1 = $usersDB->fetch_array($query)) {
@@ -103,7 +104,7 @@ class Edit_User {
         }
 
 
-        return "Actualizado";
+        return "Actualizo";
     }
 
 }
