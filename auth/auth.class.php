@@ -77,6 +77,7 @@ $c = new Auth();
 $b = $c->Login($_REQUEST['user'],$_REQUEST['password'],$_REQUEST['appClientID']);
 //$b = $c->Login();
 //var_dump($b);
+
 $data[] = array(
     "result" => $b
 );
