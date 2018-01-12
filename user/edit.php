@@ -58,16 +58,17 @@ class Edit_User {
             }
         }
         //Verificar si existe el pass
-        $hash = password_hash($this->password, PASSWORD_BCRYPT);
-        $query = $usersDB->query("SELECT ID FROM users_password WHERE appClientID = " . $this->appClient . "");
-        if ($row1 = $usersDB->fetch_array($query)) {
-            $this->passwordID = $row1['ID'];
-            //echo $this->passwordID;
-            $query = $usersDB->query("UPDATE `users_password` SET `password`='" . $hash . "', `updated_at`='' WHERE ID=$this->passwordID");
-        } else {
-            $query = $usersDB->query("INSERT INTO `users_password`(`userID`, `password`, `appClientID`, `updated_at`) VALUES ($this->userID,'" . $hash . "',$this->appClient,'')");
+        if ($this->password) {
+            $hash = password_hash($this->password, PASSWORD_BCRYPT);
+            $query = $usersDB->query("SELECT ID FROM users_password WHERE appClientID = " . $this->appClient . "");
+            if ($row1 = $usersDB->fetch_array($query)) {
+                $this->passwordID = $row1['ID'];
+                //echo $this->passwordID;
+                $query = $usersDB->query("UPDATE `users_password` SET `password`='" . $hash . "', `updated_at`='' WHERE ID=$this->passwordID");
+            } else {
+                $query = $usersDB->query("INSERT INTO `users_password`(`userID`, `password`, `appClientID`, `updated_at`) VALUES ($this->userID,'" . $hash . "',$this->appClient,'')");
+            }
         }
-
         //Verificar rol
         $query = $usersDB->query("SELECT ID,roleID FROM `x_users_roles` WHERE userID=$this->userID and appClientID=$this->appClient");
         if ($row2 = $usersDB->fetch_array($query)) {
@@ -83,7 +84,7 @@ class Edit_User {
         foreach ($this->meta as $key => $value) {
             $query = $usersDB->query("SELECT ID FROM users_meta WHERE meta_key='" . $key . "' AND userID=$this->userID limit 1");
             if ($row3 = $usersDB->fetch_array($query)) {
-                $idxmeta=$row3['ID'];
+                $idxmeta = $row3['ID'];
                 $query = $usersDB->query("UPDATE `users_meta` SET `meta_key`='" . $key . "',`meta_value`='" . $value . "',`editor`='',`created`='' WHERE ID=$idxmeta");
             }
         }
