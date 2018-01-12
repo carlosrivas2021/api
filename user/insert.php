@@ -213,9 +213,9 @@ class Insert_User {
 // $user->set('name', $_POST['name']);
 // $user->set('api_key', $_POST['api_key']);
 // $insertId = $user->save();
-$envio = array(appClient => 12, meta => array(first_name => Carlosss, last_name => Rivass, prueba => ''), password => 'prueba', roleID => 1, email => 'a@a.com');
+//$envio = array(appClient => 12, meta => array(first_name => Carlosss, last_name => Rivass, prueba => ''), password => 'prueba', roleID => 1, email => 'a@a.com');
 $a = new Insert_User();
-$b = $a->insertuser($envio);
+$b = $a->insertuser($_REQUEST);
 //var_dump($b);
 $response['status'] = 'success';
 $response['msg'] = 'Complete';
