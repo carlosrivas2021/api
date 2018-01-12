@@ -9,6 +9,7 @@ class Lists {
 
 
     public function listing($list, $where = '') {
+        $finalList[]='';
         if($where == '') {
             $listings = (new $list())->getList();
         }else {
