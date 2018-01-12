@@ -26,7 +26,7 @@ class Edit_User {
                 case 'meta':
                     $this->meta = $value;
                     break;
-                case 'password':
+                case 'password-edit':
                     $this->password = $value;
                     break;
                 case 'roleID':
