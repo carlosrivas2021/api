@@ -13,6 +13,7 @@ require_once '../objects/XUserClient.class.php';
 require_once '../objects/Attribute.class.php';
 require_once '../objects/Logs.class.php';
 require_once '../objects/Lists.class.php';
+require_once '../objects/GetOne.class.php';
 
 require_once '../objects/Role.class.php';
 require_once '../objects/UserPassword.class.php';
