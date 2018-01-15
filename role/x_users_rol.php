@@ -6,11 +6,15 @@ include_once '../config/config.php';
 
 class X_Users_Rol {
 
-    public function xusersrol($appClientID) {
+    public function xusersrol($appClientID, $roleID = '') {
         $usersDB = new usersSql();
         $usersDBconn = $usersDB->connect(_AURORA_USERS_DATABASE, _AURORA_USERS, _AURORA_USERS_PASSWORD, 'users');
         //var_dump($usersDBconn);
-        $query = $usersDB->query("SELECT * FROM `x_users_roles` WHERE appClientID=$appClientID GROUP BY ID,userID");
+        if ($roleID == '') {
+            $query = $usersDB->query("SELECT * FROM `x_users_roles` WHERE appClientID=$appClientID GROUP BY ID,userID");
+        } else {
+            $query = $usersDB->query("SELECT * FROM `x_users_roles` WHERE appClientID=$appClientID and roleID=$roleID GROUP BY ID,userID");
+        }
         while ($row = $usersDB->fetch_array($query)) {
             $id = $row["userID"];
             $user = new GT_User($row["userID"]);
@@ -18,9 +22,8 @@ class X_Users_Rol {
                 $campos['ID'] = $user->get('ID');
                 //  var_dump($campos);
                 foreach ($user->getMeta() as $key => $value) {
-                    
-                        $campos[$key] = $value;
 
+                    $campos[$key] = $value;
                 }
             }
             $finalList[] = $campos;
@@ -32,7 +35,12 @@ class X_Users_Rol {
 }
 
 $a = new X_Users_Rol();
-$b = $a->xusersrol($_REQUEST['appClientID']);
+if(isset($_REQUEST['roleID'])){
+    $b = $a->xusersrol($_REQUEST['appClientID'],$_REQUEST['roleID']);
+}else{
+    $b = $a->xusersrol($_REQUEST['appClientID']);
+}
+
 //var_dump($b);
 $response['status'] = 'success';
 $response['msg'] = 'Complete';
