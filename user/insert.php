@@ -78,7 +78,7 @@ class Insert_User {
                     if ($this->password) {
 //            $hash = $this->password;
                         $hash = password_hash($this->password, PASSWORD_BCRYPT);
-                        $query = $usersDB->query("SELECT ID FROM users_password WHERE appClientID = " . $this->appClient . " AND userID= ".$this->userID."");
+                        $query = $usersDB->query("SELECT ID FROM users_password WHERE appClientID = " . $this->appClient . " AND userID= " . $this->userID . "");
                         if ($row1 = $usersDB->fetch_array($query)) {
                             $this->passwordID = $row1['ID'];
                             //echo $this->passwordID;
@@ -160,7 +160,7 @@ class Insert_User {
                     if ($this->password) {
 //            $hash = $this->password;
                         $hash = password_hash($this->password, PASSWORD_BCRYPT);
-                        $query = $usersDB->query("SELECT ID FROM users_password WHERE appClientID = " . $this->appClient . " AND userID= ".$this->userID."");
+                        $query = $usersDB->query("SELECT ID FROM users_password WHERE appClientID = " . $this->appClient . " AND userID= " . $this->userID . "");
                         if ($row1 = $usersDB->fetch_array($query)) {
                             $this->passwordID = $row1['ID'];
                             //echo $this->passwordID;
@@ -182,6 +182,11 @@ class Insert_User {
                         $query = $usersDB->query("INSERT INTO `x_users_roles`(`userID`, `roleID`, `appClientID`) VALUES ($this->userID,$this->roleID,$this->appClient)");
                     }
 
+
+                    //Asignar el usuario a un cliente
+                    $xuserclient = new GT_X_App_Client(12);
+                    $clientID=$xuserclient->get('clientID');
+                    $query = $usersDB->query("INSERT INTO `x_users_clients`(`userID`, `clientID`, `groupID`) VALUES (".$this->userID.",".$clientID.",'')");
                     //Actualizar los meta
                     foreach ($this->meta as $value) {
                         foreach ($value as $key => $valuem) {
