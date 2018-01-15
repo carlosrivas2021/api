@@ -7,7 +7,10 @@ $c= new Lists();
 if(isset($_REQUEST['userID'])){
    
 $b = $c->listing('GT_User_List',array($_REQUEST['userID'],'ID'));    
-}else{
+}elseif (isset($_REQUEST['email'])) {
+    $b = $c->listing('GT_User_List',array($_REQUEST['email'],'primary_email')); 
+}
+else{
 $b = $c->listing('GT_User_List');
 }
 //var_dump($b);
