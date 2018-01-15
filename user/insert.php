@@ -78,7 +78,7 @@ class Insert_User {
                     if ($this->password) {
 //            $hash = $this->password;
                         $hash = password_hash($this->password, PASSWORD_BCRYPT);
-                        $query = $usersDB->query("SELECT ID FROM users_password WHERE appClientID = " . $this->appClient . "");
+                        $query = $usersDB->query("SELECT ID FROM users_password WHERE appClientID = " . $this->appClient . " AND userID= ".$this->userID."");
                         if ($row1 = $usersDB->fetch_array($query)) {
                             $this->passwordID = $row1['ID'];
                             //echo $this->passwordID;
@@ -141,7 +141,7 @@ class Insert_User {
                             //$row = $usersDB->fetch_array($query);
                             // var_dump($row);
                             if ($row = $usersDB->fetch_array($query)) {
-                                //echo "Entro";
+                                $query = $usersDB->query("INSERT INTO `users_meta`(`userID`, `meta_key`, `meta_value`, `editor`) VALUES ($this->userID,'" . $key . "','','2') ");
                             } else {
                                 $c = new Lists();
                                 $b = $c->listing('GT_User_List');
@@ -160,7 +160,7 @@ class Insert_User {
                     if ($this->password) {
 //            $hash = $this->password;
                         $hash = password_hash($this->password, PASSWORD_BCRYPT);
-                        $query = $usersDB->query("SELECT ID FROM users_password WHERE appClientID = " . $this->appClient . "");
+                        $query = $usersDB->query("SELECT ID FROM users_password WHERE appClientID = " . $this->appClient . " AND userID= ".$this->userID."");
                         if ($row1 = $usersDB->fetch_array($query)) {
                             $this->passwordID = $row1['ID'];
                             //echo $this->passwordID;
