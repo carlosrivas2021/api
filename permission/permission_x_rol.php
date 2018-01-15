@@ -11,7 +11,7 @@ class Permission_X_Rol {
         $usersDB = new usersSql();
         $usersDBconn = $usersDB->connect(_AURORA_USERS_DATABASE, _AURORA_USERS, _AURORA_USERS_PASSWORD, 'users');
         //var_dump($usersDBconn);
-        $query = $usersDB->query('select * from permissions where ID in ( select permissionID from x_roles_permissions where roleID in ((SELECT ID FROM `roles` where appClientID="'.$appClientID.'")))');
+        $query = $usersDB->query('select * from permissions where permissions.app in ( select x_apps_clients.appID from x_apps_clients where x_apps_clients.ID="'.$appClientID.'")');
        // var_dump($usersDB->fetch_array($query));
         while ($row = $usersDB->fetch_array($query)) {
                                
