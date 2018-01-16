@@ -59,7 +59,13 @@ class Insert_Permission {
                 if ($row = $usersDB->fetch_array($query)) {
                     return "Record found";
                 } else {
-                    $query = $usersDB->query("INSERT INTO `permissions`(`slug`, `name`, `parent`, `root`, `app`, `description`) VALUES ('" . $this->slug . "','" . $this->name . "','" . $this->parent . "','" . $this->root . "','" . $this->app . "','" . $this->description . "')");
+                    $query = $usersDB->query("SELECT appID FROM x_apps_clients WHERE ID=$this->appClientID");
+
+                    if ($row = $usersDB->fetch_array($query)) {
+                        $this->app=$row["appID"];
+                        $query = $usersDB->query("INSERT INTO `permissions`(`slug`, `name`, `parent`, `root`, `app`, `description`) VALUES ('" . $this->slug . "','" . $this->name . "','" . $this->parent . "','" . $this->root . "','" . $this->app . "','" . $this->description . "')");
+                    }
+
                     return "Record created";
                 }
             } else {
