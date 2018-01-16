@@ -6,17 +6,24 @@ include_once '../config/config.php';
 
 class Permission_X_Rol {
 
-    public function permissionxrol($appClientID, $rolID = '') {
+    public function permissionxrol($appClientID = '', $rolID = '', $permissionID = '') {
         $finalList = array();
         $usersDB = new usersSql();
         $usersDBconn = $usersDB->connect(_AURORA_USERS_DATABASE, _AURORA_USERS, _AURORA_USERS_PASSWORD, 'users');
         //var_dump($usersDBconn);
-        if ($rolID == '') {
+        if ($appClientID != '') {
             echo $rolID;
             $query = $usersDB->query('select * from permissions where permissions.app in ( select x_apps_clients.appID from x_apps_clients where x_apps_clients.ID="' . $appClientID . '")');
             while ($row = $usersDB->fetch_array($query)) {
 
                 $finalList[] = $row;
+                //unset($campos);
+            }
+        } elseif ($permissionID != '') {
+            $query = $usersDB->query('SELECT roleID FROM `x_roles_permissions` where permissionID =' . $permissionID . '');
+            while ($row = $usersDB->fetch_array($query)) {
+
+                $finalList[] = $row["roleID"];
                 //unset($campos);
             }
         } else {
@@ -41,9 +48,11 @@ class Permission_X_Rol {
 
 $a = new Permission_X_Rol();
 if (isset($_REQUEST['roleID'])) {
-    $b = $a->permissionxrol('', $_REQUEST['roleID']);
+    $b = $a->permissionxrol('', $_REQUEST['roleID'], '');
+} elseif (isset($_REQUEST['permissionID'])) {
+    $b = $a->permissionxrol('', '', $_REQUEST['permissionID']);
 } else {
-    $b = $a->permissionxrol($_REQUEST['appClientID'], '');
+    $b = $a->permissionxrol($_REQUEST['appClientID'], '', '');
 }
 
 //var_dump($b);
