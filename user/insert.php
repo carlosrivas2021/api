@@ -118,11 +118,11 @@ class Insert_User {
             }
         } else {
             //Si no existe el usuario lo crea
-            $creoUser = new GT_User();
-            $creoUser->set('username', $this->email);
-            $creoUser->set('password', $this->email);
-            $creoUser->set('primary_email', $this->email);
-            $this->userID = $creoUser->save();
+            $createUser = new GT_User();
+            $createUser->set('username', $this->email);
+            $createUser->set('password', $this->email);
+            $createUser->set('primary_email', $this->email);
+            $this->userID = $createUser->save();
 
             try {
                 $user = new GT_User($this->userID);
@@ -184,7 +184,7 @@ class Insert_User {
 
 
                     //Asignar el usuario a un cliente
-                    $xuserclient = new GT_X_App_Client(12);
+                    $xuserclient = new GT_X_App_Client($this->appClient);
                     $clientID=$xuserclient->get('clientID');
                     $query = $usersDB->query("INSERT INTO `x_users_clients`(`userID`, `clientID`, `groupID`) VALUES (".$this->userID.",".$clientID.",'')");
                     //Actualizar los meta
