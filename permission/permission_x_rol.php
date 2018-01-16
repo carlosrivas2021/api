@@ -21,7 +21,7 @@ echo $rolID;
         // var_dump($usersDB->fetch_array($query));
         while ($row = $usersDB->fetch_array($query)) {
 
-            $finalList[] = $row;
+            $finalList[] = $row["permissionID"];
             //unset($campos);
         }
         return $finalList;
