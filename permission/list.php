@@ -5,10 +5,8 @@ header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/config.php';
 
 $c= new Lists();
-if (isset($_REQUEST['appClientID'])) {
-    $b = $c->listing('GT_Permission_List', array($_REQUEST['appClientID'], 'app'));
-} elseif (isset($_REQUEST['rolID'])) {
-    $b = $c->listing('GT_Permission_List', array($_REQUEST['PermissionID'], 'ID'));
+if (isset($_REQUEST['permissionID'])) {
+    $b = $c->listing('GT_Permission_List', array($_REQUEST['permissionID'], 'ID'));
 }else{
     $b = $c->listing('GT_Permission_List');
 }
