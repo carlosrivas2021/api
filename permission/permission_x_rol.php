@@ -12,10 +12,10 @@ class Permission_X_Rol {
         $usersDBconn = $usersDB->connect(_AURORA_USERS_DATABASE, _AURORA_USERS, _AURORA_USERS_PASSWORD, 'users');
         //var_dump($usersDBconn);
         if ($rolID == '') {
-
+echo $rolID;
             $query = $usersDB->query('select * from permissions where permissions.app in ( select x_apps_clients.appID from x_apps_clients where x_apps_clients.ID="' . $appClientID . '")');
         } else {
-            $query = $usersDB->query('SELECT permissionID FROM `x_roles_permissions` where roleID' . $rolID . '');
+            $query = $usersDB->query('SELECT permissionID FROM `x_roles_permissions` where roleID =' . $rolID . '');
         }
 
         // var_dump($usersDB->fetch_array($query));
@@ -31,11 +31,12 @@ class Permission_X_Rol {
 }
 
 //var_dump($_REQUEST['appClientID']);
+
 $a = new Permission_X_Rol();
 if (isset($_REQUEST['roleID'])) {
-    $b = $a->permissionxrol($_REQUEST['roleID']);
+    $b = $a->permissionxrol('',$_REQUEST['roleID']);
 } else {
-    $b = $a->permissionxrol($_REQUEST['appClientID']);
+    $b = $a->permissionxrol($_REQUEST['appClientID'],'');
 }
 
 //var_dump($b);
