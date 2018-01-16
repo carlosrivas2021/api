@@ -31,7 +31,7 @@ class Insert_Rol {
                 case 'appClientID':
                     $this->appClient = $value;
                     break;
-                case 'descripcion':
+                case 'description':
                     $this->descripcion = $value;
                     break;
                 default:
