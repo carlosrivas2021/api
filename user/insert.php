@@ -87,6 +87,20 @@ class Insert_User {
                             $query = $usersDB->query("INSERT INTO `users_password`(`userID`, `password`, `appClientID`, `updated_at`) VALUES ($this->userID,'" . $hash . "',$this->appClient,'')");
                         }
                     }
+                    //Asignar el usuario a un cliente
+                    $xuserclient = new GT_X_App_Client($this->appClient);
+                    $clientID = $xuserclient->get('clientID');
+
+
+                    $query = $usersDB->query("SELECT ID FROM `x_users_clients` WHERE userID=$this->userID and clientID=$clientID");
+                    if ($row2 = $usersDB->fetch_array($query)) {
+                        
+                    } else {
+                        $query = $usersDB->query("INSERT INTO `x_users_clients`(`userID`, `clientID`, `groupID`) VALUES (" . $this->userID . "," . $clientID . ",'')");
+                    }
+
+
+
                     //Verificar rol
                     //Si existe el rol lo cambia
                     //Si no existe lo crea
@@ -185,8 +199,8 @@ class Insert_User {
 
                     //Asignar el usuario a un cliente
                     $xuserclient = new GT_X_App_Client($this->appClient);
-                    $clientID=$xuserclient->get('clientID');
-                    $query = $usersDB->query("INSERT INTO `x_users_clients`(`userID`, `clientID`, `groupID`) VALUES (".$this->userID.",".$clientID.",'')");
+                    $clientID = $xuserclient->get('clientID');
+                    $query = $usersDB->query("INSERT INTO `x_users_clients`(`userID`, `clientID`, `groupID`) VALUES (" . $this->userID . "," . $clientID . ",'')");
                     //Actualizar los meta
                     foreach ($this->meta as $value) {
                         foreach ($value as $key => $valuem) {
@@ -208,16 +222,11 @@ class Insert_User {
 
 
 
-        return "Creo";
+        return "Create";
     }
 
 }
 
-// unset($user);
-// $user = new GT_App();
-// $user->set('name', $_POST['name']);
-// $user->set('api_key', $_POST['api_key']);
-// $insertId = $user->save();
 //$envio = array(appClient => 12, meta => array(first_name => Carlosss, last_name => Rivass, prueba => ''), password => 'prueba', roleID => 1, email => 'a@a.com');
 $a = new Insert_User();
 $b = $a->insertuser($_REQUEST);
