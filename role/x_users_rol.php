@@ -7,6 +7,7 @@ include_once '../config/config.php';
 class X_Users_Rol {
 
     public function xusersrol($appClientID, $roleID = '') {
+        $finalList=array();
         $usersDB = new usersSql();
         $usersDBconn = $usersDB->connect(_AURORA_USERS_DATABASE, _AURORA_USERS, _AURORA_USERS_PASSWORD, 'users');
         //var_dump($usersDBconn);
