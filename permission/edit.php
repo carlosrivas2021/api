@@ -53,40 +53,44 @@ class Edit_Permission {
 
             $query = $usersDB->query("SELECT ID FROM permissions WHERE ID ='" . $this->id . "'");
             if ($row = $usersDB->fetch_array($query)) {
+                $query = $usersDB->query("SELECT ID FROM permissions WHERE name='" . $this->name . "' AND ID!='" . $this->id . "'");
 
-
-                $query = $usersDB->query("UPDATE `permissions` SET `slug`='" . $this->slug . "',`name`='" . $this->name . "' ,`parent`='" . $this->parent . "',`root`='" . $this->root . "', `description`='" . $this->description . "' WHERE ID ='" . $this->id . "'");
-                $entro = array();
-                foreach ($this->roles as $value) {
-                    $query = $usersDB->query("SELECT ID FROM x_roles_permissions WHERE roleID ='" . $value . "' AND permissionID ='" . $this->id . "'");
-                    if ($row = $usersDB->fetch_array($query)) {
-                        $entro[] = $value;
-                    }
-                }
-                if ($this->roles != 0) {
-                    $resultado = array_diff($this->roles, $entro);
-                    //var_dump($resultado);
-                    if ($resultado) {
-                        foreach ($resultado as $value) {
-                            $query = $usersDB->query("INSERT INTO `x_roles_permissions`(`roleID`, `permissionID`) VALUES ($value,$this->id)");
-                        }
-                    } else {
-                        $where = "";
-                        foreach ($entro as $value) {
-                            if ($where == "") {
-                                $where = "roleID!='" . $value . "'";
-                            } else {
-                                $where = $where . " and roleID!='" . $value . "'";
-                            }
-                        }
-                        //echo $where;
-                        $query = $usersDB->query("DELETE FROM `x_roles_permissions` WHERE " . $where . " AND permissionID=$this->id");
-                    }
+                if ($row = $usersDB->fetch_array($query)) {
+                    return "Record found";
                 } else {
 
-                    $query = $usersDB->query("DELETE FROM `x_roles_permissions` WHERE permissionID=$this->id");
-                }
+                    $query = $usersDB->query("UPDATE `permissions` SET `slug`='" . $this->slug . "',`name`='" . $this->name . "' ,`parent`='" . $this->parent . "',`root`='" . $this->root . "', `description`='" . $this->description . "' WHERE ID ='" . $this->id . "'");
+                    $entro = array();
+                    foreach ($this->roles as $value) {
+                        $query = $usersDB->query("SELECT ID FROM x_roles_permissions WHERE roleID ='" . $value . "' AND permissionID ='" . $this->id . "'");
+                        if ($row = $usersDB->fetch_array($query)) {
+                            $entro[] = $value;
+                        }
+                    }
+                    if ($this->roles != 0) {
+                        $resultado = array_diff($this->roles, $entro);
+                        //var_dump($resultado);
+                        if ($resultado) {
+                            foreach ($resultado as $value) {
+                                $query = $usersDB->query("INSERT INTO `x_roles_permissions`(`roleID`, `permissionID`) VALUES ($value,$this->id)");
+                            }
+                        } else {
+                            $where = "";
+                            foreach ($entro as $value) {
+                                if ($where == "") {
+                                    $where = "roleID!='" . $value . "'";
+                                } else {
+                                    $where = $where . " and roleID!='" . $value . "'";
+                                }
+                            }
+                            //echo $where;
+                            $query = $usersDB->query("DELETE FROM `x_roles_permissions` WHERE " . $where . " AND permissionID=$this->id");
+                        }
+                    } else {
 
+                        $query = $usersDB->query("DELETE FROM `x_roles_permissions` WHERE permissionID=$this->id");
+                    }
+                }
 
                 return "Updated record";
             } else {
