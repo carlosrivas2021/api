@@ -29,21 +29,23 @@ class Edit_Rol {
         $usersDB = new usersSql();
         $usersDBconn = $usersDB->connect(_AURORA_USERS_DATABASE, _AURORA_USERS, _AURORA_USERS_PASSWORD, 'users');
 
-        // var_dump($this->permissions);
+         //var_dump($this->permissions);
         if ($this->permissions == 0) {
             $query = $usersDB->query("DELETE FROM `x_roles_permissions` WHERE roleID=$this->roleID");
         } else {
             $entro = array();
             foreach ($this->permissions as $value) {
 
-                $query = $usersDB->query("SELECT * FROM `x_roles_permissions` where roleID=1 and permissionID=$value");
+                $query = $usersDB->query("SELECT * FROM `x_roles_permissions` where roleID=$this->roleID and permissionID=$value");
                 if ($row = $usersDB->fetch_array($query)) {
                     $entro[] = $value;
                 }
             }
-            //var_dump($entro);
+           // echo "entro";
+           // var_dump($entro);
             $resultado = array_diff($this->permissions, $entro);
-            //var_dump($resultado);
+         //  echo "resultado";
+          //  var_dump($resultado);
             if ($resultado) {
                 foreach ($resultado as $value) {
                     $query = $usersDB->query("INSERT INTO `x_roles_permissions`(`roleID`, `permissionID`) VALUES ($this->roleID,$value)");
