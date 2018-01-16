@@ -45,7 +45,7 @@ class Insert_Rol {
             return "Rol exist";
         } else {
 
-
+            $createRol = new GT_Role();
             $createRol->set('name', $this->roleName);
             $createRol->set('appClientID', $this->appClient);
             $createRol->set('description', $this->descripcion);
