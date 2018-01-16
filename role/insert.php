@@ -38,57 +38,60 @@ class Insert_Rol {
                     break;
             }
         }
-        $createRol = new GT_Role();
-        $createRol->set('name', $this->roleName);
-        $createRol->set('appClientID', $this->appClient);
-        $createRol->set('description', $this->descripcion);
-        $this->roleID = $createRol->save();
-       // echo $this->roleID;
-
         $usersDB = new usersSql();
         $usersDBconn = $usersDB->connect(_AURORA_USERS_DATABASE, _AURORA_USERS, _AURORA_USERS_PASSWORD, 'users');
-
-
-        // var_dump($this->permissions);
-        if ($this->permissions == 0) {
-            $query = $usersDB->query("DELETE FROM `x_roles_permissions` WHERE roleID=$this->roleID");
+        $query = $usersDB->query('SELECT * FROM roles WHERE  name="' . $this->roleName . '" AND appClientID="' . $this->appClient . '"');
+        if ($row = $usersDB->fetch_array($query)) {
+            return "Rol exist";
         } else {
-            $entro = array();
-            foreach ($this->permissions as $value) {
 
-                $query = $usersDB->query("SELECT * FROM `x_roles_permissions` where roleID=$this->roleID and permissionID=$value");
-                if ($row = $usersDB->fetch_array($query)) {
-                    $entro[] = $value;
-                }
-            }
-            //var_dump($entro);
-            $resultado = array_diff($this->permissions, $entro);
-            //var_dump($resultado);
-            if ($resultado) {
-                foreach ($resultado as $value) {
-                    $query = $usersDB->query("INSERT INTO `x_roles_permissions`(`roleID`, `permissionID`) VALUES ($this->roleID,$value)");
-                }
+
+            $createRol->set('name', $this->roleName);
+            $createRol->set('appClientID', $this->appClient);
+            $createRol->set('description', $this->descripcion);
+            $this->roleID = $createRol->save();
+            // echo $this->roleID;
+            // var_dump($this->permissions);
+            if ($this->permissions == 0) {
+                $query = $usersDB->query("DELETE FROM `x_roles_permissions` WHERE roleID=$this->roleID");
             } else {
-                $where = "";
-                foreach ($entro as $value) {
-                    if ($where == "") {
-                        $where = "permissionID!='" . $value . "'";
-                    } else {
-                        $where = $where . " and permissionID!='" . $value . "'";
+                $entro = array();
+                foreach ($this->permissions as $value) {
+
+                    $query = $usersDB->query("SELECT * FROM `x_roles_permissions` where roleID=$this->roleID and permissionID=$value");
+                    if ($row = $usersDB->fetch_array($query)) {
+                        $entro[] = $value;
                     }
                 }
-                //echo $where;
-                $query = $usersDB->query("DELETE FROM `x_roles_permissions` WHERE " . $where . " AND roleID=$this->roleID");
+                //var_dump($entro);
+                $resultado = array_diff($this->permissions, $entro);
+                //var_dump($resultado);
+                if ($resultado) {
+                    foreach ($resultado as $value) {
+                        $query = $usersDB->query("INSERT INTO `x_roles_permissions`(`roleID`, `permissionID`) VALUES ($this->roleID,$value)");
+                    }
+                } else {
+                    $where = "";
+                    foreach ($entro as $value) {
+                        if ($where == "") {
+                            $where = "permissionID!='" . $value . "'";
+                        } else {
+                            $where = $where . " and permissionID!='" . $value . "'";
+                        }
+                    }
+                    //echo $where;
+                    $query = $usersDB->query("DELETE FROM `x_roles_permissions` WHERE " . $where . " AND roleID=$this->roleID");
+                }
             }
+
+
+            return "ok";
         }
-
-
-        return "ok";
     }
 
 }
 
-//$datos = array("roleName" => "Nuevo Rol", "descripcion"=>"Nueva descripcion","appClientID"=>12, "permission"=>array(1));
+//$datos = array("roleName" => "Nuevo Rol", "descripcion" => "Nueva descripcion", "appClientID" => 12, "permission" => array(1));
 $a = new Insert_Rol();
 $b = $a->insertRol($_REQUEST);
 ////var_dump($b);
