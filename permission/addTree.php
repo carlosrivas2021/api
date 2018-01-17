@@ -23,7 +23,7 @@ class Add_Tree {
                         for ($index = 0; $index < count($result1); $index++) {
                             //$result[] = $index+1;
 
-                            $result[] = "- " . $result1[$index];
+                            $result[] = "" . $result1[$index];
                         }
                     }
 //                    $html .= "</li>";
