@@ -55,7 +55,7 @@ foreach ($b['masters'] as $master) {
         for ($index = 0; $index < count($result1); $index++) {
             //$result[] = $index+1;
             
-            $new[] = "- " .$result1[$index];
+            $new[] = "&nbsp;&nbsp;&nbsp;&nbsp;" .$result1[$index];
         }
 //                       
     }
