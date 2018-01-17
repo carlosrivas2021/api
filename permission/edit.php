@@ -58,16 +58,25 @@ class Edit_Permission {
                 if ($row = $usersDB->fetch_array($query)) {
                     return "Record found";
                 } else {
-
-                    $query = $usersDB->query("UPDATE `permissions` SET `slug`='" . $this->slug . "',`name`='" . $this->name . "' ,`parent`='" . $this->parent . "',`root`='" . $this->root . "', `description`='" . $this->description . "' WHERE ID ='" . $this->id . "'");
-                    $entro = array();
-                    foreach ($this->roles as $value) {
-                        $query = $usersDB->query("SELECT ID FROM x_roles_permissions WHERE roleID ='" . $value . "' AND permissionID ='" . $this->id . "'");
-                        if ($row = $usersDB->fetch_array($query)) {
-                            $entro[] = $value;
+                    $query = $usersDB->query("SELECT parent FROM permissions WHERE ID='" . $this->parent . "'");
+                    if ($row = $usersDB->fetch_array($query)) {
+                        if ($row['parent'] == $this->id) {
+                            return "Paternity problem";
+                            exit();
                         }
+                    } else {
+                        
                     }
+                    $query = $usersDB->query("UPDATE `permissions` SET `slug`='" . $this->slug . "',`name`='" . $this->name . "' ,`parent`='" . $this->parent . "',`root`='" . $this->root . "', `description`='" . $this->description . "' WHERE ID ='" . $this->id . "'");
+
                     if ($this->roles != 0) {
+                        $entro = array();
+                        foreach ($this->roles as $value) {
+                            $query = $usersDB->query("SELECT ID FROM x_roles_permissions WHERE roleID ='" . $value . "' AND permissionID ='" . $this->id . "'");
+                            if ($row = $usersDB->fetch_array($query)) {
+                                $entro[] = $value;
+                            }
+                        }
                         $resultado = array_diff($this->roles, $entro);
                         //var_dump($resultado);
                         if ($resultado) {
