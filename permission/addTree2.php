@@ -17,13 +17,13 @@ class Add_Tree {
 //                    $html .= "<a href='#' style='margin: 5px 6px' class='btn btn-warning btn-xs btn-folder'>";
 //
 //                    $html .= "<span class='glyphicon glyphicon-plus-sign'></span>" . $row['name'] . "</a>";
-                    $result[] = $row['name'];
+                    $result[] = $row;
                     $result1 = self::nested($rows, $row["ID"]);
                     if ($result1) {
                         for ($index = 0; $index < count($result1); $index++) {
                             //$result[] = $index+1;
 
-                            $result[] = "- " . $result1[$index];
+                            $result[] =  $result1[$index];
                         }
                     }
 //                    $html .= "</li>";

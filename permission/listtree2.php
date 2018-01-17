@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/config.php';
 //require_once '../objects/sql.class.php';
-require_once './addTree.php';
+require_once './addTree2.php';
 
 class List_Tree {
 
@@ -47,7 +47,7 @@ $b['children'] = $elements["childrens"];
 $i = 0;
 foreach ($b['masters'] as $master) {
     //$new[]=0;
-    $new[] = $master["name"];
+    $new[] = $master;
     $i++;
     $result1 = Add_Tree::nested($b['children'], $master["ID"]);
 //    var_dump($result1);
@@ -55,7 +55,7 @@ foreach ($b['masters'] as $master) {
         for ($index = 0; $index < count($result1); $index++) {
             //$result[] = $index+1;
             
-            $new[] = "- " .$result1[$index];
+            $new[] = $result1[$index];
         }
 //                       
     }
