@@ -1,5 +1,6 @@
 <?php
 
+//
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/config.php';
@@ -13,43 +14,23 @@ class List_Tree {
 
     public function get() {
         $usersDB = new usersSql();
+  //      $usersDBconn = $usersDB->connect('localhost', 'root', '200306', 'users');
         $usersDBconn = $usersDB->connect(_AURORA_USERS_DATABASE, _AURORA_USERS, _AURORA_USERS_PASSWORD, 'users');
 
         $query = $usersDB->query('SELECT * FROM permissions');
         $this->_elements["masters"] = $this->_elements["childrens"] = array();
         while ($element = $usersDB->fetch_array($query)) {
-             if ($element["parent"] == 0) {
-                    array_push($this->_elements["masters"], $element);
-                } else {
-                    array_push($this->_elements["childrens"], $element);
-                }
+            if ($element["parent"] == 0) {
+                array_push($this->_elements["masters"], $element);
+            } else {
+                array_push($this->_elements["childrens"], $element);
+            }
         }
-        
+
 //var_dump($query);
-        
+
         return $this->_elements;
     }
-
-//    public static function nested($rows = array(), $parent_id = 0) {
-//        $html = "";
-//        if (!empty($rows)) {
-//            $html .= "<ul>";
-//            foreach ($rows as $row) {
-//                if ($row["parent"] == $parent_id) {
-//                    $html .= "<li style='margin:5px 0px'>";
-//                    $html .= "<span><i class='glyphicon glyphicon-folder-open'></i></span>";
-//                    $html .= "<a href='#' style='margin: 5px 6px' class='btn btn-warning btn-xs btn-folder'>";
-//
-//                    $html .= "<span class='glyphicon glyphicon-plus-sign'></span>" . $row['name'] . "</a>";
-//
-//                    $html .= self::nested($rows, $row["ID"]);
-//                    $html .= "</li>";
-//                }
-//            }
-//            $html .= "</ul>";
-//        }
-//        return $html;
-//    }
 
 }
 
@@ -60,10 +41,21 @@ $b['masters'] = $elements["masters"];
 //var_dump($masters);
 $b['children'] = $elements["childrens"];
 //var_dump($childrens);
+//$response['status'] = 'success';
+//$response['msg'] = 'Complete';
+//$response['data'] = $b;
+//var_dump($b['masters']);
+foreach ($b['masters'] as $master) {
+    $new[] = $master["name"];
+    $result1 = Add_Tree::nested($b['children'], $master["ID"]);
+    if($result1){
+                        $new[]=$result1;
+                    }
+}
 
 $response['status'] = 'success';
 $response['msg'] = 'Complete';
-$response['data'] = $b;
+$response['data'] = $new;
 die;
 //echo "<ul>";
 //foreach ($masters as $master) {
