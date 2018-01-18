@@ -9,7 +9,7 @@ class Filtred_Permission {
     public function filtredPermission($rolID) {
         $usersDB = new usersSql();
         $usersDBconn = $usersDB->connect(_AURORA_USERS_DATABASE, _AURORA_USERS, _AURORA_USERS_PASSWORD, 'users');
-
+        $go = 0;
 
         $query = $usersDB->query('SELECT permissionID FROM `x_roles_permissions` where roleID =' . $rolID . '');
         while ($row = $usersDB->fetch_array($query)) {
@@ -23,19 +23,21 @@ class Filtred_Permission {
 
             $finalList2[] = $row["parent"];
             //unset($campos);
+            $go = 1;
         }
 //        var_dump($finalList2);
-        
-        foreach ($finalList2 as $value) {
-            foreach ($finalList as $key => $value2) {
-                if ($value==$value2) {
-                    unset($finalList[$key]);
+        if ($go == 1) {
+            foreach ($finalList2 as $value) {
+                foreach ($finalList as $key => $value2) {
+                    if ($value == $value2) {
+                        unset($finalList[$key]);
+                    }
                 }
             }
+            return $finalList;
         }
-        
-        
-        return $finalList;
+
+        return array(0);
     }
 
 }
