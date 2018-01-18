@@ -34,7 +34,10 @@ class Filtred_Permission {
                     }
                 }
             }
-            return $finalList;
+            foreach ($finalList as $value) {
+                $list[]=$value;
+            }
+            return $list;
         }
 
         return array(0);
