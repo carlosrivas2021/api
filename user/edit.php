@@ -12,6 +12,7 @@ class Edit_User {
     public $roleID;
     public $password;
     public $passwordID;
+    public $email;
 
     function editUser($datos = array()) {
         foreach ($datos as $key => $value) {
@@ -31,6 +32,9 @@ class Edit_User {
                     break;
                 case 'roleID':
                     $this->roleID = $value;
+                    break;
+                case 'email':
+                    $this->email = $value;
                     break;
                 default:
                     break;
@@ -76,6 +80,22 @@ class Edit_User {
             } else {
                 $query = $usersDB->query("INSERT INTO `users_password`(`userID`, `password`, `appClientID`, `updated_at`) VALUES ($this->userID,'" . $hash . "',$this->appClient,'')");
             }
+//            $query = $usersDB->query("SELECT primary_email FROM users_master WHERE ID = " . $this->userID . "");
+//            if ($row1 = $usersDB->fetch_array($query)) {
+//                $this->email = $row1['primary_email'];
+//                //echo $this->passwordID;
+//
+//                $mail = "Su nueva contraseña es : ". $this->password;
+////Titulo
+//                $titulo = "Actualización de contraseña";
+////cabecera
+//                $headers = "MIME-Version: 1.0\r\n";
+//                $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
+////dirección del remitente 
+//                $headers .= "From: globaltech < globaltech@globaltech.com >\r\n";
+////Enviamos el mensaje a tu_dirección_email 
+//                $bool = mail("ingcarlosrivas20@gmail.com", $titulo, $mail, $headers);
+//            }
         }
         //Verificar rol
         //Si existe el rol lo cambia
@@ -102,6 +122,8 @@ class Edit_User {
                 }
             }
         }
+
+
 
 
         return "Actualizo";
