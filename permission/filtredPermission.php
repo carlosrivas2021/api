@@ -17,12 +17,14 @@ class Filtred_Permission {
             $finalList[] = $row["permissionID"];
             //unset($campos);
         }
-        $query = $usersDB->query('SELECT parent FROM `permissions`');
+//        var_dump($finalList);
+        $query = $usersDB->query('SELECT parent FROM `permissions` where id in( SELECT permissionID FROM `x_roles_permissions` where roleID =' . $rolID . ')');
         while ($row = $usersDB->fetch_array($query)) {
 
             $finalList2[] = $row["parent"];
             //unset($campos);
         }
+//        var_dump($finalList2);
         
         foreach ($finalList2 as $value) {
             foreach ($finalList as $key => $value2) {
@@ -38,6 +40,10 @@ class Filtred_Permission {
 
 }
 
-$b = new Filtred_Permission();
-$result = $b->filtredPermission(2);
-var_dump($result);
+$a = new Filtred_Permission();
+$b = $a->filtredPermission($_REQUEST['roleID']);
+//var_dump($result);
+$response['status'] = 'success';
+$response['msg'] = 'Complete';
+$response['data'] = $b;
+die;
