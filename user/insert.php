@@ -86,23 +86,19 @@ class Insert_User {
                         } else {
                             $query = $usersDB->query("INSERT INTO `users_password`(`userID`, `password`, `appClientID`, `updated_at`) VALUES ($this->userID,'" . $hash . "',$this->appClient,'')");
                         }
-                        
-                        //            $query = $usersDB->query("SELECT primary_email FROM users_master WHERE ID = " . $this->userID . "");
-//            if ($row1 = $usersDB->fetch_array($query)) {
-//                $this->email = $row1['primary_email'];
-//                //echo $this->passwordID;
+
+//                        //echo $this->passwordID;
 //
-//                $mail = "Su nueva contraseña es : ". $this->password;
+//                        $mail = "Su nueva contraseña es : " . $this->password;
 ////Titulo
-//                $titulo = "Actualización de contraseña";
+//                        $titulo = "Actualización de contraseña";
 ////cabecera
-//                $headers = "MIME-Version: 1.0\r\n";
-//                $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
+//                        $headers = "MIME-Version: 1.0\r\n";
+//                        $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
 ////dirección del remitente 
-//                $headers .= "From: globaltech < globaltech@globaltech.com >\r\n";
+//                        $headers .= "From: globaltech < globaltech@globaltech.com >\r\n";
 ////Enviamos el mensaje a tu_dirección_email 
-//                $bool = mail("ingcarlosrivas20@gmail.com", $titulo, $mail, $headers);
-//            }
+//                        $bool = mail("ingcarlosrivas20@gmail.com", $titulo, $mail, $headers);
                     }
                     //Asignar el usuario a un cliente
                     $xuserclient = new GT_X_App_Client($this->appClient);
